@@ -8,5 +8,5 @@ export const globals = {
   bg_color_primary: '#1a1a1a',
   bg_color_secundary: '#eee', 
 
-  radius_default: 50,
+  radius_default: 12,
 };
