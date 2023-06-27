@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from '../pages/home';
-import Timer from '../pages/timer';
+import Home from '../pages/home/home';
+import Timer from '../pages/timer/timer';
 
 const { Screen, Navigator } = createNativeStackNavigator();
 

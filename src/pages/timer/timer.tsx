@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Dimensions } from "react-native";
 import { StyleSheet } from "react-native";
 import { View, TouchableOpacity, Text } from "react-native";
-
-const deviceHeight = Dimensions.get('window').height;
+import { s } from "./timer.styles";
+// import Constants from 'expo-constants';
+// import CountDown from 'react-native-countdown-component';
 
 export default function Timer() {
   const [timeColorPlayer1, setTimeColorPlayer1] = useState('#eee')
@@ -80,10 +81,10 @@ export default function Timer() {
   }
 
   return (
-    <View style={styles.containerClock}>
-    <View style={ styles.celula }>
+    <View style={ s.containerClock }>
+    <View style={ s.celula }>
       {/* <CountDown
-        style={[ styles.crono, { backgroundColor: timeBgColorPlayer1, transform: [{rotate: '180deg'}] }]}
+        style={[ s.crono, { backgroundColor: timeBgColorPlayer1, transform: [{rotate: '180deg'}] }]}
 
         until={ tempPlayer1 }
         running={ timePlayer1 } 
@@ -102,15 +103,15 @@ export default function Timer() {
       /> */}
     </View>
 
-    <View style={ styles.groupButtons }>
+    <View style={ s.groupButtons }>
       <TouchableOpacity>
-        <Text style={ styles.buttonText }>VOLTAR</Text>
+        <Text style={ s.buttonText }>VOLTAR</Text>
       </TouchableOpacity>
     </View>
 
-    <View style={ styles.celula }>
+    <View style={ s.celula }>
       {/* <CountDown
-        style={[ styles.crono, { backgroundColor: timeBgColorPlayer2 }]}
+        style={[ s.crono, { backgroundColor: timeBgColorPlayer2 }]}
 
         until={ tempPlayer2 }     //TEMPO DO CRONOMETRO
         running={ timePlayer2 }   // PAUSE
@@ -131,33 +132,3 @@ export default function Timer() {
   </View> 
   )
 }
-
-const styles = StyleSheet.create({
-  containerClock: {
-    height: deviceHeight,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    padding: 8,
-    backgroundColor: '#1a1a1a'
-  },
-  crono: {
-    width: 340,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5000
-  },
-  celula: {
-    justifyContent: 'center'
-  },
-  groupButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    paddingTop: 30,
-    paddingBottom: 30,
-  },
-  buttonText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#eee',
-  }
-});
