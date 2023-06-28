@@ -1,10 +1,6 @@
 import { useState } from "react";
-import { Dimensions } from "react-native";
-import { StyleSheet } from "react-native";
 import { View, TouchableOpacity, Text } from "react-native";
 import { s } from "./timer.styles";
-// import Constants from 'expo-constants';
-// import CountDown from 'react-native-countdown-component';
 
 export default function Timer() {
   const [timeColorPlayer1, setTimeColorPlayer1] = useState('#eee')
@@ -15,6 +11,8 @@ export default function Timer() {
   const [timePlayer1, setTimePlayer1] = useState(false)
   const [timePlayer2, setTimePlayer2] = useState(false)
   const [isFinish, setIsFinish] = useState(false)
+
+  const [isPaused, setIsPaused] = useState(false)
 
   const isStarted = (playerStarted: number) => {
     if (!timePlayer1 && !timePlayer2) {
@@ -30,6 +28,10 @@ export default function Timer() {
         setTimeColorPlayer1('#eee')
       }
     }
+  }
+
+  const pause = () => {
+    setIsPaused(!isPaused);
   }
 
   const pressPlayer1 = () => {
@@ -82,53 +84,62 @@ export default function Timer() {
 
   return (
     <View style={ s.containerClock }>
-    <View style={ s.celula }>
-      {/* <CountDown
-        style={[ s.crono, { backgroundColor: timeBgColorPlayer1, transform: [{rotate: '180deg'}] }]}
 
-        until={ tempPlayer1 }
-        running={ timePlayer1 } 
-        onPress={ pressPlayer1 }
-        onFinish={ losePlayer1 }
+      <View style={ s.containerTimer }>
+        { !isPaused &&
+          <View style={ s.containerConfigs }>
+            <TouchableOpacity style={ s.punishButton }>
+              <Text style={ s.punishButtonText }>-1</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={ s.punishButton }>
+              <Text style={ s.punishButtonText }>+1</Text>
+            </TouchableOpacity>
+          </View>
+        }
 
-        // ESTILOS
-        showSeparator={ true }
-        timeToShow={['M', 'S']}
-        timeLabels={{m: '', s: ''}}
-        size={ 40 }
+        <View style={ s.celula }>
+          <View style={ s.timer }>
+            <Text>00:00:00</Text>
+          </View>
+        </View>
+      </View>
 
-        digitStyle={{ backgroundColor: ''}}
-        digitTxtStyle={{ color: timeColorPlayer1 }}
-        separatorStyle={{ color: timeColorPlayer1 }}
-      /> */}
-    </View>
+      <View style={ s.groupButtons }>
+        { !isPaused &&
+          <TouchableOpacity onPress={pause}>
+            <Text style={ s.buttonText }>V</Text>
+          </TouchableOpacity>
+        }
 
-    <View style={ s.groupButtons }>
-      <TouchableOpacity>
-        <Text style={ s.buttonText }>VOLTAR</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity onPress={pause} >
+          <Text style={ s.buttonText }>P</Text>
+        </TouchableOpacity>
 
-    <View style={ s.celula }>
-      {/* <CountDown
-        style={[ s.crono, { backgroundColor: timeBgColorPlayer2 }]}
+        { !isPaused &&
+          <TouchableOpacity onPress={pause} >
+            <Text style={ s.buttonText }>G</Text>
+          </TouchableOpacity>
+        }
+      </View>
 
-        until={ tempPlayer2 }     //TEMPO DO CRONOMETRO
-        running={ timePlayer2 }   // PAUSE
-        onPress={ pressPlayer2 } 
-        onFinish={ losePlayer2 }  // QUANTO TEMPO CHEGAR A ZERO
+      <View style={ s.containerTimer }>
+        { !isPaused &&
+          <View style={ s.containerConfigs }>
+            <TouchableOpacity style={ s.punishButton }>
+              <Text style={ s.punishButtonText }>-1</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={ s.punishButton }>
+              <Text style={ s.punishButtonText }>+1</Text>
+            </TouchableOpacity>
+          </View>
+        }
+        <View style={ s.celula }>
+          <View style={ s.timer }>
+            <Text>00:00:00</Text>
+          </View>
+        </View>
+      </View>
 
-        // ESTILOS
-        showSeparator={ true }
-        timeToShow={['M', 'S']}
-        timeLabels={{ m: '', s: '' }}
-        size={ 40 }
-
-        digitStyle={{ backgroundColor: ''}}
-        digitTxtStyle={{ color: timeColorPlayer2 }}
-        separatorStyle={{ color: timeColorPlayer2 }}
-      />  */}
-    </View>
-  </View> 
+    </View> 
   )
 }
