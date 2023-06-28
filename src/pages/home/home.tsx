@@ -12,8 +12,8 @@ export default function Home() {
   const [timePlayer2, setTimePlayer2] = useState(false);
   const [tempPlayer1, setTempPlayer1] = useState(10);
   const [tempPlayer2, setTempPlayer2] = useState(10);
-  const [selectedValue, setSelectedValue] = useState("M");
-  const [selectedValue2, setSelectedValue2] = useState("S");
+  const [selectedValue, setSelectedValue] = useState("m");
+  const [selectedValue2, setSelectedValue2] = useState("s");
 
   const start = () => {
     navigation.navigate('timer');
@@ -39,9 +39,8 @@ export default function Home() {
             selectedValue={ selectedValue }
             onValueChange={(item: string) => setSelectedValue(item)} 
             dropdownIcon={ true }>
-            <Select.Item label="H" value="H" />
-            <Select.Item label="M" value="M" />
-            <Select.Item label="S" value="S" />
+            <Select.Item label="min" value="m" />
+            <Select.Item label="seg" value="s" />
           </Select>
 
         </View>
@@ -60,9 +59,8 @@ export default function Home() {
             selectedValue={ selectedValue2 }
             onValueChange={(item: string) => setSelectedValue2(item)} 
             dropdownIcon={ true }>
-            <Select.Item label="H" value="H" />
-            <Select.Item label="M" value="M" />
-            <Select.Item label="S" value="S" />
+            <Select.Item label="min" value="m" />
+            <Select.Item label="seg" value="s" />
           </Select>
         </View>
       </View>
@@ -83,9 +81,8 @@ export default function Home() {
             selectedValue={ selectedValue }
             onValueChange={(item: string) => setSelectedValue(item)} 
             dropdownIcon={ true }>
-            <Select.Item label="H" value="H" />
-            <Select.Item label="M" value="M" />
-            <Select.Item label="S" value="S" />
+            <Select.Item label="min" value="m" />
+            <Select.Item label="seg" value="s" />
           </Select>
 
         </View>
@@ -104,9 +101,8 @@ export default function Home() {
             selectedValue={ selectedValue2 }
             onValueChange={(item: string) => setSelectedValue2(item)} 
             dropdownIcon={ true }>
-            <Select.Item label="H" value="H" />
-            <Select.Item label="M" value="M" />
-            <Select.Item label="S" value="S" />
+            <Select.Item label="min" value="m" />
+            <Select.Item label="seg" value="s" />
           </Select>
         </View>
       </View>
