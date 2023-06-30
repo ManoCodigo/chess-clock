@@ -17,18 +17,18 @@ export const s = StyleSheet.create({
     flexDirection: 'row',
     flexGrow: 1,
   },
+  timer: {
+    fontSize: 50,
+    fontWeight: 'bold',
+    color: globals.bg_color_secundary,
+    marginLeft: 7,
+  },
   celula: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: globals.primary_color,
+    alignItems: 'center',
     borderRadius: globals.radius_default
   },
-  timer: {
-    fontSize: 40,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-
   containerConfigs: {
     width: 80,
     display: 'flex',
@@ -61,4 +61,4 @@ export const s = StyleSheet.create({
     fontWeight: 'bold',
     color: globals.bg_color_secundary,
   }
-});
+}); 
