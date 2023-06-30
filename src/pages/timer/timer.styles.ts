@@ -10,7 +10,7 @@ export const s = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     padding: 8,
-    backgroundColor: globals.bg_color_primary
+    backgroundColor: globals.black_default
   },
   containerTimer: {
     display: 'flex',
@@ -20,7 +20,7 @@ export const s = StyleSheet.create({
   timer: {
     fontSize: 50,
     fontWeight: 'bold',
-    color: globals.bg_color_secundary,
+    color: globals.white_default,
     marginLeft: 7,
   },
   celula: {
@@ -59,6 +59,6 @@ export const s = StyleSheet.create({
   buttonText: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: globals.bg_color_secundary,
+    color: globals.white_default,
   }
 }); 

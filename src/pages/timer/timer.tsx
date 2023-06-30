@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigation } from '@react-navigation/native';
 import { View, TouchableOpacity, Text, TouchableHighlight } from "react-native";
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { s } from "./timer.styles";
+import { globals } from "../../styles/globals";
 
 export default function Timer() {
   const navigation = useNavigation();
@@ -12,7 +14,7 @@ export default function Timer() {
   const [isPaused, setIsPaused] = useState(false); 
   const [isStarted, setIsStarted] = useState(false);
   const [isFinish, setIsFinish] = useState(false); 
-  const [colorTurn, setColorTurn] = useState('#ffb500'); 
+  const [colorTurn, setColorTurn] = useState(globals.primary_color); 
   const [rotateModel, setRotateModel] = useState(1); 
   const [rotatesModelCurrent, setRotatesModelCurrent] = useState({
     btnsMin: '0deg',
@@ -94,7 +96,7 @@ export default function Timer() {
   }
 
   const finish = () => {
-    setColorTurn('#ff4000');
+    setColorTurn(globals.alert_color);
     setIsFinish(true);
   }
 
@@ -161,16 +163,22 @@ export default function Timer() {
               togglePlayer(2) 
           }}
           style={[ 
-            s.celula,
-            {
-              backgroundColor: activePlayer === 1 ? colorTurn : '#1a1a1a',
-            }
-          ]} 
-        >
-          <Text style={[ s.timer, {
-            color: activePlayer === 1 ? '#1a1a1a' : '#eee',
-            transform: [{ rotate: rotatesModelCurrent.timerP1 }]
-          } ]}>{formatTime(player1Time)}</Text>
+            s.celula, {
+              backgroundColor: activePlayer === 1 ? colorTurn : globals.black_default,
+            }]}>
+          <View style={{ 
+              transform: [{ rotate: rotatesModelCurrent.timerP1 }], 
+              alignItems: 'center' 
+            }}>
+              { isPaused &&
+                <Icon name="lock" size={38} style={{ 
+                  color: activePlayer === 1 ? globals.black_default : globals.white_default 
+                }}/>
+              }
+            <Text style={[ s.timer, {
+              color: activePlayer === 1 ? globals.black_default : globals.white_default,
+            }]}>{formatTime(player1Time)}</Text>
+          </View>
         </TouchableHighlight>
       </View>
 
@@ -178,17 +186,19 @@ export default function Timer() {
       <View style={ s.groupButtons }>
         { isPaused &&
           <TouchableOpacity onPress={back} style={{ transform: [{ rotate: rotatesModelCurrent.btnsCentral }] }}>
-            <Text style={ s.buttonText }>V</Text>
+            <Icon name="reply" size={38} style={{ color: globals.white_default }}/>
           </TouchableOpacity>
         }
 
         <TouchableOpacity onPress={pause} style={{ transform: [{ rotate: rotatesModelCurrent.btnsCentral }] }}>
-          <Text style={ s.buttonText }>P</Text>
+          <Text style={ s.buttonText }>
+            <Icon name={ isPaused ? 'play' : 'pause'} size={38}/>
+          </Text>
         </TouchableOpacity>
 
         { isPaused &&
           <TouchableOpacity onPress={rotate} style={{ transform: [{ rotate: rotatesModelCurrent.btnsCentral }] }}>
-            <Text style={ s.buttonText }>G</Text>
+            <Icon name="retweet" size={38} style={{ color: globals.white_default }}/>
           </TouchableOpacity>
         }
       </View>
@@ -214,16 +224,22 @@ export default function Timer() {
               togglePlayer(1) 
           }}
           style={[ 
-            s.celula,
-            {
-              backgroundColor: activePlayer === 2 ? colorTurn : '#1a1a1a',
-            }
-          ]} 
-        >
-          <Text style={[ s.timer, {
-            color: activePlayer === 2 ? '#1a1a1a' : '#eee',
-            transform: [{ rotate: rotatesModelCurrent.timerP2 }]
-          } ]}>{formatTime(player2Time)}</Text>
+            s.celula, {
+              backgroundColor: activePlayer === 2 ? colorTurn : globals.black_default,
+            }]}>
+            <View style={{ 
+              transform: [{ rotate: rotatesModelCurrent.timerP2 }], 
+              alignItems: 'center' 
+            }}>
+              { isPaused &&
+                <Icon name="lock" size={38} style={{ 
+                  color: activePlayer === 2 ? globals.black_default : globals.white_default 
+                }}/>
+              }
+            <Text style={[ s.timer, {
+              color: activePlayer === 2 ? globals.black_default : globals.white_default,
+            }]}>{formatTime(player2Time)}</Text>
+          </View>
         </TouchableHighlight>
       </View>
 

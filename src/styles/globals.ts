@@ -1,12 +1,8 @@
 
 export const globals = {
-  white_default: '#fff',
-  black_default: '#fff',
-
   primary_color: '#ffb500',
-
-  bg_color_primary: '#1a1a1a',
-  bg_color_secundary: '#eee', 
-
+  white_default: '#eee',
+  black_default: '#1a1a1a',
+  alert_color: '#ff4000',
   radius_default: 12,
 };

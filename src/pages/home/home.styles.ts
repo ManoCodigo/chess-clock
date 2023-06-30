@@ -8,7 +8,7 @@ export const s = StyleSheet.create({
     height: deviceHeight,
     padding: 20,
     paddingTop: 180,
-    backgroundColor: globals.bg_color_primary
+    backgroundColor: globals.black_default
   },
   title: {
     fontSize: 50,
@@ -34,7 +34,7 @@ export const s = StyleSheet.create({
     height: 75,
     fontSize: 30,
     textAlign: 'center',
-    backgroundColor: globals.bg_color_secundary,
+    backgroundColor: globals.white_default,
   },
   inputNumber: {
     borderBottomLeftRadius: globals.radius_default,
@@ -43,10 +43,6 @@ export const s = StyleSheet.create({
   inputTime: {
     borderBottomRightRadius: globals.radius_default,
     borderTopRightRadius: globals.radius_default,
-  },
-  plus: {
-    fontSize: 50,
-    color: globals.primary_color
   },
 
   btnStart: {

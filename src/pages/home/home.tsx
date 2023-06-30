@@ -2,7 +2,9 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState }  from 'react';
 import { Text, View, TextInput, TouchableOpacity, Button } from 'react-native';
 import { Select } from "native-base";
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { s } from './home.styles';
+import { globals } from '../../styles/globals';
 
 export default function Home() {
 
@@ -44,7 +46,7 @@ export default function Home() {
           </Select>
 
         </View>
-        <Text style={ s.plus }>+</Text>
+        <Icon name="plus" size={30} style={{ color: globals.primary_color }}/>
         <View style={ s.inputBox }>
           <TextInput 
             style={[ s.input, s.inputNumber ]}
@@ -86,7 +88,7 @@ export default function Home() {
           </Select>
 
         </View>
-        <Text style={ s.plus }>+</Text>
+        <Icon name="plus" size={30} style={{ color: globals.primary_color }}/>
         <View style={ s.inputBox }>
           <TextInput 
             style={[ s.input, s.inputNumber ]}
@@ -111,7 +113,7 @@ export default function Home() {
         onPress={start}
         style={ s.btnStart }
       >
-        <Text>COMEÇAR</Text>
+        <Icon name="play" size={30} style={{ color: globals.black_default }}/>
       </TouchableOpacity>
     </View>
   );
