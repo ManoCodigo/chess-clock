@@ -4,12 +4,15 @@ import { View, TouchableOpacity, Text, TouchableHighlight } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { s } from "./timer.styles";
 import { globals } from "../../styles/globals";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Timer() {
   const navigation = useNavigation();
 
   const [player1Time, setPlayer1Time] = useState(5 * 60);
   const [player2Time, setPlayer2Time] = useState(5 * 60);
+  const [incrementPlayer1, setIncrementPlayer1] = useState(2);
+  const [incrementPlayer2, setIncrementPlayer2] = useState(2);
   const [activePlayer, setActivePlayer] = useState(0);
   const [isPaused, setIsPaused] = useState(false); 
   const [isStarted, setIsStarted] = useState(false);
@@ -17,10 +20,10 @@ export default function Timer() {
   const [colorTurn, setColorTurn] = useState(globals.primary_color); 
   const [rotateModel, setRotateModel] = useState(1); 
   const [rotatesModelCurrent, setRotatesModelCurrent] = useState({
-    btnsMin: '0deg',
-    btnsCentral: '0deg',
-    timerP1: '0deg',
-    timerP2: '0deg',
+    btnsMin: '90deg',
+    btnsCentral: '90deg',
+    timerP1: '90deg',
+    timerP2: '90deg',
   }); 
 
   const formatTime = (time: number) => {
@@ -36,24 +39,28 @@ export default function Timer() {
   useEffect(() => {
     let intervalId: number;
 
-    if (isStarted && !isPaused && !isFinish) {
-      intervalId = setInterval(() => {
-        if (activePlayer === 1) {
-          if (player1Time > 0) {
-            setPlayer1Time((prevTime) => prevTime - 1)
-          } else {
-            clearInterval(intervalId);
-            finish();
+    if(!isStarted)
+      setConfigs();
+    else {
+      if (isStarted && !isPaused && !isFinish) {
+        intervalId = setInterval(() => {
+          if (activePlayer === 1) {
+            if (player1Time > 0) {
+              setPlayer1Time((prevTime) => prevTime - 1)
+            } else {
+              clearInterval(intervalId);
+              finish();
+            }
+          } else if (activePlayer === 2) {
+            if (player2Time > 0) {
+              setPlayer2Time((prevTime) => prevTime - 1);
+            } else {
+              clearInterval(intervalId);
+              finish();
+            }
           }
-        } else if (activePlayer === 2) {
-          if (player2Time > 0) {
-            setPlayer2Time((prevTime) => prevTime - 1);
-          } else {
-            clearInterval(intervalId);
-            finish();
-          }
-        }
-      }, 1000);
+        }, 1000);
+      }
     }
 
     return () => {
@@ -61,11 +68,28 @@ export default function Timer() {
     };
   }, [isPaused, isStarted, activePlayer, player2Time, player1Time ]);
 
+  const setConfigs = async () => {
+    const configsStrinfy = await AsyncStorage.getItem('configs') || '';
+    const configs = JSON.parse(configsStrinfy);
+
+    if(configsStrinfy) {
+      setPlayer1Time(configs.p1.timeExtensive === 'm' ? configs.p1.time * 60 : configs.p1.time);
+      setIncrementPlayer1(
+        configs.p1.incrementExtensive === 'm' ? configs.p1.increment * 60 : configs.p1.increment
+        );
+
+      setPlayer2Time(configs.p2.timeExtensive === 'm' ? configs.p2.time * 60 : configs.p2.time);
+      setIncrementPlayer2(
+        configs.p2.incrementExtensive === 'm' ? configs.p2.increment * 60 : configs.p2.increment
+        );
+    }
+  }
+
   const togglePlayer = (playerTurn: number) => {
     if(playerTurn === 1 && isStarted) 
-      setPlayer2Time((prevTime) => prevTime + 2);
+      setPlayer2Time((prevTime) => prevTime + incrementPlayer2);
     else if(playerTurn === 2 && isStarted)
-      setPlayer1Time((prevTime) => prevTime + 2);
+      setPlayer1Time((prevTime) => prevTime + incrementPlayer1);
 
     if (!isStarted) setIsStarted(true);
     
@@ -186,7 +210,7 @@ export default function Timer() {
       <View style={ s.groupButtons }>
         { isPaused &&
           <TouchableOpacity onPress={back} style={{ transform: [{ rotate: rotatesModelCurrent.btnsCentral }] }}>
-            <Icon name="reply" size={38} style={{ color: globals.white_default }}/>
+            <Icon name="home" size={38} style={{ color: globals.white_default }}/>
           </TouchableOpacity>
         }
 
