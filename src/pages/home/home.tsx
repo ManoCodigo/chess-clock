@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState }  from 'react';
+import React, { useEffect, useState }  from 'react';
 import { Text, View, TextInput, TouchableOpacity, Button } from 'react-native';
 import { Select } from "native-base";
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -19,6 +19,27 @@ export default function Home() {
   const [timeExtensivePlayer2, setTimeExtensivePlayer2] = useState("m");
   const [incrementExtensivePlayer1, setIncrementExtensivePlayer1] = useState("s");
   const [incrementExtensivePlayer2, setIncrementExtensivePlayer2] = useState("s");
+
+  useEffect(() => {
+    setStorage();
+  }, [])
+
+  const setStorage = async () => {
+    const contentStorage = await AsyncStorage.getItem('configs');
+    
+    if(contentStorage) {
+      const configs = JSON.parse(contentStorage);
+      setTimePlayer1(String(configs.p1.time));
+      setTimeExtensivePlayer1(String(configs.p1.timeExtensive));
+      setIncrementPlayer1(String(configs.p1.increment));
+      setIncrementExtensivePlayer1(String(configs.p1.incrementExtensive));
+  
+      setTimePlayer2(String(configs.p2.time));
+      setTimeExtensivePlayer2(String(configs.p2.timeExtensive));
+      setIncrementPlayer2(String(configs.p2.increment));
+      setIncrementExtensivePlayer2(String(configs.p2.incrementExtensive));
+    }
+  }
 
   const start = async () => {
     const configs = {
@@ -41,17 +62,17 @@ export default function Home() {
   }
 
   const checkTime = (time: string, isTime: boolean, player: number) => {
-    const sanitizedText = time.replace(/[^a-zA-Z0-9]/g, '');
-    const trimmedText = sanitizedText.replace(/^0+/, '');
+    const clearCharTime = time.replace(/[^a-zA-Z0-9]/g, '');
+    const timeFiltered = clearCharTime.replace(/^0+/, '');
 
     if(player === 1) {
-      if(+trimmedText <= 60)
+      if(+timeFiltered <= 60)
         isTime ? 
-        (setTimePlayer1(trimmedText), setTimePlayer2(trimmedText)) : 
-        (setIncrementPlayer1(trimmedText), setIncrementPlayer2(trimmedText));
+        (setTimePlayer1(timeFiltered), setTimePlayer2(timeFiltered)) : 
+        (setIncrementPlayer1(timeFiltered), setIncrementPlayer2(timeFiltered));
     } else {
-      if(+trimmedText <= 60)
-        isTime ? setTimePlayer2(trimmedText) : setIncrementPlayer2(trimmedText);
+      if(+timeFiltered <= 60)
+        isTime ? setTimePlayer2(timeFiltered) : setIncrementPlayer2(timeFiltered);
     }
   } 
 
@@ -92,7 +113,7 @@ export default function Home() {
               setTimeExtensivePlayer1(item)
               setTimeExtensivePlayer2(item)
             }} 
-            dropdownIcon={ true }>
+            dropdownIcon={<></>}>
             <Select.Item label="min" value="m" />
             <Select.Item label="seg" value="s" />
           </Select>
@@ -118,7 +139,7 @@ export default function Home() {
               setIncrementExtensivePlayer1(item)
               setIncrementExtensivePlayer2(item)
             }} 
-            dropdownIcon={ true }>
+            dropdownIcon={<></>}>
             <Select.Item label="min" value="m" />
             <Select.Item label="seg" value="s" />
           </Select>
@@ -144,7 +165,7 @@ export default function Home() {
             borderRadius={ 0 } 
             selectedValue={ timeExtensivePlayer2 }
             onValueChange={(item: string) => setTimeExtensivePlayer2(item)} 
-            dropdownIcon={ true }>
+            dropdownIcon={<></>}>
             <Select.Item label="min" value="m" />
             <Select.Item label="seg" value="s" />
           </Select>
@@ -167,7 +188,7 @@ export default function Home() {
             borderRadius={ 0 } 
             selectedValue={ incrementExtensivePlayer2 }
             onValueChange={(item: string) => setIncrementExtensivePlayer2(item)} 
-            dropdownIcon={ true }>
+            dropdownIcon={<></>}>
             <Select.Item label="min" value="m" />
             <Select.Item label="seg" value="s" />
           </Select>
