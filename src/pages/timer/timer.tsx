@@ -4,7 +4,7 @@ import { View, TouchableOpacity, Text, TouchableHighlight } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { s } from "./timer.styles";
 import { globals } from "../../styles/globals";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Timer() {
   const navigation = useNavigation();
@@ -27,9 +27,10 @@ export default function Timer() {
   }); 
 
   const formatTime = (time: number) => {
-    const minutes = Math.floor(time / 60);
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
     const seconds = time % 60;
-    return `${padTime(minutes)}:${padTime(seconds)}`;
+    return `${padTime(hours)}:${padTime(minutes)}:${padTime(seconds)}`;
   }
 
   const padTime = (value: number) => {
@@ -66,7 +67,7 @@ export default function Timer() {
     return () => {
       clearInterval(intervalId);
     };
-  }, [isPaused, isStarted, activePlayer, player2Time, player1Time ]);
+  }, [isPaused, isStarted, isFinish, activePlayer, player2Time, player1Time ]);
 
   const setConfigs = async () => {
     const configsStrinfy = await AsyncStorage.getItem('configs') || '';
@@ -100,7 +101,7 @@ export default function Timer() {
     const playerTime = player === 1 ? player1Time : player2Time;
     const calcTime = isPlus ? (playerTime + 60) : (playerTime - 60);
 
-    if(calcTime <= 0 || calcTime > 3600)
+    if(calcTime <= 0 || calcTime > 86400)
       return false;
     else
       return true;

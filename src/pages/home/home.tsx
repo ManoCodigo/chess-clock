@@ -1,11 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState }  from 'react';
-import { Text, View, TextInput, TouchableOpacity, Button } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import { Select } from "native-base";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { s } from './home.styles';
 import { globals } from '../../styles/globals';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Home() {
 
@@ -64,14 +64,19 @@ export default function Home() {
   const checkTime = (time: string, isTime: boolean, player: number) => {
     const clearCharTime = time.replace(/[^a-zA-Z0-9]/g, '');
     const timeFiltered = clearCharTime.replace(/^0+/, '');
-
+    
     if(player === 1) {
-      if(+timeFiltered <= 60)
+      if(+timeFiltered <= 1440) {
         isTime ? 
         (setTimePlayer1(timeFiltered), setTimePlayer2(timeFiltered)) : 
         (setIncrementPlayer1(timeFiltered), setIncrementPlayer2(timeFiltered));
+      } else {
+        isTime ? 
+        (setTimePlayer1('1440'), setTimePlayer2('1440')) : 
+        (setIncrementPlayer1('1440'), setIncrementPlayer2('1440'));
+      }
     } else {
-      if(+timeFiltered <= 60)
+      if(+timeFiltered <= 86400)
         isTime ? setTimePlayer2(timeFiltered) : setIncrementPlayer2(timeFiltered);
     }
   } 
@@ -82,15 +87,21 @@ export default function Home() {
       if(!timePlayer2)
         setTimePlayer2('1');
     } else if(!incrementPlayer1) {
-      setIncrementPlayer1('1')
+      setIncrementPlayer1('0')
       if(!incrementPlayer2)
-        setIncrementPlayer2('1');
+        setIncrementPlayer2('0');
     }
   }
 
   return (
     <View style={s.containerMenu}>
-      <Text style={s.title}>ChessClock</Text>
+      <View style={s.logo}>
+        <Image 
+          resizeMode='center'
+          style={{ width: 128, height: 128 }}
+          source={require('../../../assets/logo-chess.png')}
+        />
+      </View>
 
       <View style={ s.containerTimer }>
         <View style={ s.inputBox }>
@@ -98,7 +109,7 @@ export default function Home() {
             style={[ s.input, s.inputNumber ]}
             keyboardType='numeric'
             value={timePlayer1}
-            maxLength={2}
+            maxLength={4}
             onChangeText={(item) => checkTime(String(item), true, 1)}
             onEndEditing={setMinimumTime}
           />
@@ -153,7 +164,7 @@ export default function Home() {
             style={[ s.input, s.inputNumber ]}
             keyboardType='numeric'
             value={timePlayer2}
-            maxLength={2}
+            maxLength={4}
             onChangeText={(item) => checkTime(String(item), true, 2)}
             onEndEditing={() => { if(!timePlayer2) setTimePlayer2('1')}}
           />

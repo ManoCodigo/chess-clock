@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "chess-clock",
+    "name": "Chess Clock",
     "slug": "chess-clock",
-    "version": "1.0.0",
+    "version": "1.0.4",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon-chess.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash-chess.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#1a1a1a"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -18,13 +18,20 @@
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 4,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/splash-chess.png",
+        "backgroundColor": "#1a1a1a"
+      },
+      "package": "com.lucascbrandao.playchess"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/logo-chess.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5417c6a5-a725-4d6f-9ff8-de56c057e352"
+      }
     }
   }
 }

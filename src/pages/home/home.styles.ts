@@ -7,14 +7,12 @@ export const s = StyleSheet.create({
   containerMenu: {
     height: deviceHeight,
     padding: 20,
-    paddingTop: 180,
+    paddingTop: 130,
     backgroundColor: globals.black_default
   },
-  title: {
-    fontSize: 50,
-    fontWeight: 'bold',
-    color: globals.primary_color,
-    textAlign: 'center',
+  logo: {
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingBottom: 30
   },
 
@@ -32,7 +30,7 @@ export const s = StyleSheet.create({
   input: {
     width: 75,
     height: 75,
-    fontSize: 30,
+    fontSize: 26,
     textAlign: 'center',
     backgroundColor: globals.white_default,
   },
@@ -48,6 +46,7 @@ export const s = StyleSheet.create({
   btnStart: {
     alignItems: 'center',
     padding: 20,
+    marginTop: 30,
     borderRadius: globals.radius_default,
     backgroundColor: globals.primary_color,
   },
