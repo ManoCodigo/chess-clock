@@ -2,7 +2,7 @@
   "expo": {
     "name": "Chess Clock",
     "slug": "chess-clock",
-    "version": "1.0.4",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon-chess.png",
     "userInterfaceStyle": "light",
@@ -18,7 +18,7 @@
       "supportsTablet": true
     },
     "android": {
-      "versionCode": 4,
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/splash-chess.png",
         "backgroundColor": "#1a1a1a"
