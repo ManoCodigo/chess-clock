@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigation } from '@react-navigation/native';
-import { View, TouchableOpacity, Text, TouchableHighlight } from "react-native";
+import { View, TouchableOpacity, Text, TouchableHighlight, Modal } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { s } from "./timer.styles";
 import { globals } from "../../styles/globals";
@@ -8,6 +8,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Timer() {
   const navigation = useNavigation();
+
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const [player1Time, setPlayer1Time] = useState(5 * 60);
   const [player2Time, setPlayer2Time] = useState(5 * 60);
@@ -159,8 +161,38 @@ export default function Timer() {
     }
   }
 
+  const isShowModal = (value: boolean) => {
+    setModalVisible(value);
+  };
+
+  const modalConfirm = () => {
+    back();
+    isShowModal(false);
+  };
+  
+  const restart = () => {
+    setConfigs();
+    setRotateModel(1);
+    switchRotateModel();
+    setRotatesModelCurrent({
+      btnsMin: '90deg',
+      btnsCentral: '90deg',
+      timerP1: '90deg',
+      timerP2: '90deg',
+    }); 
+    setIsPaused(false);
+    setIsStarted(false);
+    setIsFinish(false);
+    setActivePlayer(0);
+    isShowModal(false);
+  }
+
   const back = () => {
     navigation.navigate('home');
+  }
+  
+  const toggleSound = () => {
+    // navigation.navigate('home');
   }
 
   return (
@@ -210,8 +242,8 @@ export default function Timer() {
       {/* CENTRAL */}
       <View style={ s.groupButtons }>
         { isPaused &&
-          <TouchableOpacity onPress={back} style={{ transform: [{ rotate: rotatesModelCurrent.btnsCentral }] }}>
-            <Icon name="home" size={38} style={{ color: globals.white_default }}/>
+          <TouchableOpacity onPress={() => isShowModal(true)} style={{ transform: [{ rotate: rotatesModelCurrent.btnsCentral }] }}>
+            <Icon name="cog" size={38} style={{ color: globals.white_default }}/>
           </TouchableOpacity>
         }
 
@@ -268,6 +300,39 @@ export default function Timer() {
         </TouchableHighlight>
       </View>
 
+      {/* MODAL CONFIRM EXIT */}
+      <Modal 
+        visible={isModalVisible}         
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => isShowModal(false)}>
+        <View style={s.coverModal} >
+          <View style={s.containerModal} >
+
+            {/* CLOSE */}
+            <TouchableOpacity onPress={() => isShowModal(false)} style={s.modalBtnClose}>
+              <Icon name="close" size={18} style={{ color: globals.white_default }}/>
+            </TouchableOpacity>
+              
+            <View style={s.boxFuncitons}>
+              {/* HOME */}
+              <TouchableOpacity onPress={modalConfirm} style={s.modalBtn}>
+                <Icon name="home" size={38} style={{ color: globals.white_default }}/>
+              </TouchableOpacity>
+
+              {/* RESTART */}
+              <TouchableOpacity onPress={restart} style={s.modalBtn}>
+                <Icon name="refresh" size={34} style={{ color: globals.white_default }}/>
+              </TouchableOpacity>
+
+              {/* SOUND */}
+              <TouchableOpacity onPress={toggleSound} style={s.modalBtn}>
+                <Icon name="bell" size={34} style={{ color: globals.white_default }}/>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View> 
   )
 }

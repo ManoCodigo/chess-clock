@@ -49,6 +49,35 @@ export const s = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold'
   },
+  
+  coverModal: {
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)'
+  },
+  containerModal: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    paddingLeft: 40,
+    paddingBottom: 40,
+    backgroundColor: globals.black_default,
+    borderRadius: globals.radius_default
+  },
+  modalBtn: {
+    padding: 5,
+  },
+  modalBtnClose: {
+    padding: 20,
+  },
+  boxFuncitons: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 60,
+    paddingRight: 40,
+    marginTop: 10
+  },
 
   groupButtons: {
     flexDirection: 'row',
